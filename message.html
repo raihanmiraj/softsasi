@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>message</title>
+</head>
+<body>
+    <div class="container">
+       
+<div class="d-flex justify-content-center">
+   
+    <table id="table" class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Message</th>
+          </tr>
+        </thead>
+        <tbody id="tabledata">
+      
+      
+        </tbody>
+      </table>
+</div>
+    </div>
+  
+</body>
+
+<script>
+
+
+
+    var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        getAllData(xhttp.responseText);
+    }
+};
+xhttp.open("GET",  "https://greepie-62407-default-rtdb.firebaseio.com/contactform.json", true);
+xhttp.send();
+
+const getAllData = (data)=>{
+    data = JSON.parse(data);
+    var objectdata = Object.keys(data) . map(i=>{
+        var email= data[i].email;
+        var name= data[i].name
+        var subject=  data[i].subject
+        var message= data[i].message
+console.log(data[i])
+        $("#tabledata").append('  <tr><th scope="row">'+name+'</th> <td>'+email+'</td>  <td>'+subject+'</td><td>'+message+'</td>       </tr>')
+    })
+   
+
+}
+</script>
+</html>
